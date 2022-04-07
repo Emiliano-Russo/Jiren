@@ -1,73 +1,91 @@
-const { app, BrowserWindow } = require("electron");
-const isDev = require("electron-is-dev");
+// Modules to control application life and create native browser window
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
+const isDev = require("electron-is-dev");
+const { beginInstallationCycle } = require("./gameManipulation/installationCycle/main.cjs");
+const fs = require("fs");
+const os = require("os");
+const username = os.userInfo().username;
+const { playGame } = require("./gameManipulation/gameStarter.cjs");
+const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
+const { getInstalledGames } = require("./gameManipulation/gameFinder.cjs");
+const { getPage } = require("./wish/main.cjs");
 
-// Conditionally include the dev tools installer to load React Dev Tools
-let installExtension, REACT_DEVELOPER_TOOLS;
-
-if (isDev) {
-  const devTools = require("electron-devtools-installer");
-  installExtension = devTools.default;
-  REACT_DEVELOPER_TOOLS = devTools.REACT_DEVELOPER_TOOLS;
+const dir = "C:/Users/" + username + "/Documents/JirenGames";
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir, (err) => {
+    console.log("**ERROR**");
+    console.log(err);
+  });
 }
 
-function createWindow() {
+const createWindow = () => {
+  // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    frame: true, // removes the frame from the BrowserWindow. It is advised that you either create a custom menu bar or remove this line
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      enableRemoteModule: false,
-      preload: path.join(__dirname, "preload.js"),
+      devTools: isDev, // toggles whether devtools are available. to use node write window.require('<node-name>')
+      nodeIntegration: true, // turn this off if you don't mean to use node
+      enableRemoteModule: true,
+      contextIsolation: false,
     },
   });
+  //dialog.showErrorBox("ERROR");
+  // load the index.html of the app. (or localhost on port 3000 if you're in development)
+  mainWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`);
 
-  // Load from localhost if in development
-  // Otherwise load index.html file
-  mainWindow.loadURL(
-    isDev
-      ? "http://localhost:3000"
-      : `file://${path.join(__dirname, "../build/index.html")}`
-  );
+  // Open the DevTools. will only work if webPreferences::devTools is true
+  mainWindow.webContents.openDevTools();
+};
 
-  // Open DevTools if in dev mode
-  if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: "detach" });
-  }
-}
-
-// Create a new browser window by invoking the createWindow
-// function once the Electron application is initialized.
-// Install REACT_DEVELOPER_TOOLS as well if isDev
-app.whenReady().then(() => {
-  if (isDev) {
-    installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((error) => console.log(`An error occurred: , ${error}`));
-  }
-
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on("ready", () => {
   createWindow();
+  app.on("activate", () => {
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 });
 
-// Add a new listener that tries to quit the application when
-// it no longer has any open windows. This listener is a no-op
-// on macOS due to the operating system's window management behavior.
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  // if (process.platform !== "darwin") app.quit();
+  console.log("window-all-closed!");
+  app.quit();
 });
 
-// Add a new listener that creates a new browser window only if
-// when the application has no visible windows after being activated.
-// For example, after launching the application for the first time,
-// or re-launching the already running application.
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+app.on("quit", () => {
+  console.log("quit!");
+  app.quit();
 });
 
-// The code above has been adapted from a starter example in the Electron docs:
-// https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file
+ipcMain.on("download", async function (event, game) {
+  beginInstallationCycle(event, game);
+});
+
+ipcMain.on("get-installed-games", function (event, arg) {
+  const gameList = getInstalledGames(dir);
+  event.sender.send("get-installed-games", gameList);
+});
+
+ipcMain.on("play-game", function (event, gameName) {
+  playGame(gameName, dir);
+});
+
+ipcMain.on("delete-game", function (event, gameName) {
+  deleteGame(gameName, dir);
+});
+
+ipcMain.on("delete-game", function (event, gameName) {
+  deleteGame(gameName, dir);
+});
+
+ipcMain.on("get-page", function (event, pageNmbr) {
+  console.log("IPCMAIN.ON (GET-PAGE)");
+  getPage(pageNmbr, event);
+});

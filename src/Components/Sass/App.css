@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.App {
+  color: rgb(0, 0, 0);
+  min-height: 100vh;
+  height: max-content;
+}
+
+body {
+  margin: 0;
+  background: rgb(43, 52, 81);
+}
+
+* {
+  font-family: "Lato", sans-serif;
+}

@@ -1,0 +1,31 @@
+.downloads {
+  display: flex;
+  flex-direction: row;
+  height: 92vh;
+}
+
+.downloads .queue {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  width: 50rem;
+  overflow-y: scroll;
+}
+
+.downloads .queue h1 {
+  color: white;
+}
+
+.downloads .downloading {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 2rem;
+}
+.downloads .downloading h1 {
+  color: rgb(243, 243, 245);
+}

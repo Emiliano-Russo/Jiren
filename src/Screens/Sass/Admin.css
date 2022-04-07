@@ -1,0 +1,39 @@
+.AdminPanel {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+.AdminPanel input {
+  padding: 5px 10px;
+}
+
+.AdminPanel form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid white;
+  padding: 10px;
+  width: 20rem;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.AdminPanel form input {
+  padding: 0.2rem 1rem;
+}
+
+.AdminPanel form * {
+  margin-top: 1rem;
+}
+
+.AdminPanel button {
+  padding: 5px 10px;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.AdminPanel button:hover {
+  cursor: pointer;
+  background-color: salmon;
+}
