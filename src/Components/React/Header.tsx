@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import "../Sass/Header.css";
+import "../Css/Header.css";
 import { Drawer, Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import { ThemePicker } from "./ThemePicker";

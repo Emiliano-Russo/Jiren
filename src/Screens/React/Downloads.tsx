@@ -5,7 +5,7 @@ import { Memory } from "../../Storage/GamePhases";
 import { GameCard } from "../../Components/React/GameCard";
 import { FireStoreController } from "../../Storage/FireStoreController";
 import { Game } from "../../Models/Game";
-import "../Sass/Downloads.css";
+import "../Css/Downloads.css";
 import { clone } from "../../Utils/Cloner";
 import { Spin } from "antd";
 

@@ -14,12 +14,18 @@
 .gameList .game {
   width: 20rem;
   margin: 1rem;
-}
-.gameList img {
-  width: 100%;
+  background-color: aliceblue;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
-.gameList img:hover {
+
+.gameList p {
+  padding: 10px;
+}
+
+.gameList img {
+  width: 100%;
+}
+.gameList .game:hover {
   cursor: pointer;
   transition: 0.3s;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,

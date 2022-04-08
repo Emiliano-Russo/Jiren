@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Pagination, Spin } from "antd";
-import "../Sass/Wish.css";
+import "../Css/Wish.css";
 
 const { ipcRenderer, shell } = window.require("electron");
 
@@ -46,6 +46,7 @@ export function Wish() {
             return (
               <div className="game" key={game.link}>
                 <img src={game.imageUrl} alt="" onClick={() => openGameLink(game.link)} />
+                <p>{game.name}</p>
               </div>
             );
           })}

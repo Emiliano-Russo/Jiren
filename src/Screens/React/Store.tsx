@@ -4,7 +4,7 @@ import { GameCard } from "../../Components/React/GameCard";
 import { Memory } from "../../Storage/GamePhases";
 import { FireStoreController } from "../../Storage/FireStoreController";
 import { Button, Spin } from "antd";
-import "../Sass/Store.css";
+import "../Css/Store.css";
 import { message } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
 
@@ -47,7 +47,10 @@ export function Store() {
 
   return (
     <div>
-      <Button id="refreshBtn" onClick={onRefresh} icon={<ReloadOutlined />} />
+      <Button id="refreshBtn" onClick={onRefresh} icon={<ReloadOutlined />}>
+        {" "}
+        Reload
+      </Button>
 
       <div className="gameList">
         {loadingGames ? (
@@ -65,7 +68,6 @@ export function Store() {
             );
           })
         )}
-        <h1>Games.length: {games.length}</h1>
       </div>
     </div>
   );
