@@ -1,4 +1,4 @@
-import "../Sass/App.css";
+import "../Css/App.css";
 // React
 import React, { useState, useEffect } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";

@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { setTheme } from "../../Redux/themeSlice";
 import { Theme } from "../../Models/Theme";
-import { dark, light, night, redish, sun, aragon, pink } from "../../Models/AppThemes";
+import { dark, light, night, jiren, sun, aragon, pink } from "../../Models/AppThemes";
 
 export function ThemePicker() {
   const dispatch = useDispatch();
@@ -22,9 +22,9 @@ export function ThemePicker() {
         const nightTheme: Theme = night;
         dispatch(setTheme(nightTheme));
         break;
-      case "redish":
-        const redishTheme: Theme = redish;
-        dispatch(setTheme(redishTheme));
+      case "jiren":
+        const jirenTheme: Theme = jiren;
+        dispatch(setTheme(jirenTheme));
         break;
       case "sun":
         const sunTheme: Theme = sun;
@@ -55,10 +55,10 @@ export function ThemePicker() {
         Night
       </Button>
       <Button
-        onClick={() => onSelectTheme("redish")}
+        onClick={() => onSelectTheme("jiren")}
         style={{ backgroundImage: "linear-gradient(147deg, #e0455f 0%, #44000b 74%)", color: "white" }}
       >
-        Redish
+        Jiren
       </Button>
       <Button
         onClick={() => onSelectTheme("sun")}
@@ -74,7 +74,11 @@ export function ThemePicker() {
       </Button>
       <Button
         onClick={() => onSelectTheme("pink")}
-        style={{ backgroundImage: "linear-gradient(to right, #b91d73, #f953c6)", color: "white" }}
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(117,32,214,1) 0%, rgba(179,21,149,1) 31%, rgba(246,24,118,1) 100%)",
+          color: "white",
+        }}
       >
         Pink
       </Button>

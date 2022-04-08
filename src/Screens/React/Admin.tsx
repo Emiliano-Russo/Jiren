@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { db } from "../../Firebase/FirebaseConfig";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import "../Sass/Admin.css";
+import "../Css/Admin.css";
 import { resolve } from "path";
 import { FireStoreController } from "../../Storage/FireStoreController";
 import { message } from "antd";

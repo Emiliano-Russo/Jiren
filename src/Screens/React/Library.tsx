@@ -4,7 +4,7 @@ import { Game } from "../../Models/Game";
 import { FireStoreController } from "../../Storage/FireStoreController";
 import { Memory } from "../../Storage/GamePhases";
 import { clone } from "../../Utils/Cloner";
-import "../Sass/Library.css";
+import "../Css/Library.css";
 
 const { ipcRenderer } = window.require("electron");
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../Sass/GameCard.css";
+import "../Css/GameCard.css";
 import { message } from "antd";
 
 interface props {
