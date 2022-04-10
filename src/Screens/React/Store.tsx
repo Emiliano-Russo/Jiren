@@ -49,7 +49,7 @@ export function Store() {
     <div>
       <Button id="refreshBtn" onClick={onRefresh} icon={<ReloadOutlined />}>
         {" "}
-        Reload
+        Refresh
       </Button>
 
       <div className="gameList">

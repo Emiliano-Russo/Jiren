@@ -10,6 +10,7 @@ const { playGame } = require("./gameManipulation/gameStarter.cjs");
 const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
 const { getInstalledGames } = require("./gameManipulation/gameFinder.cjs");
 const { getPage } = require("./wish/main.cjs");
+const { updateChecker } = require("./updater");
 
 const dir = "C:/Users/" + username + "/Documents/JirenGames";
 if (!fs.existsSync(dir)) {
@@ -20,6 +21,9 @@ if (!fs.existsSync(dir)) {
 }
 
 const createWindow = () => {
+  //Check for app updated after 3 seconds
+  setTimeout(updateChecker, 3000);
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     frame: true, // removes the frame from the BrowserWindow. It is advised that you either create a custom menu bar or remove this line
