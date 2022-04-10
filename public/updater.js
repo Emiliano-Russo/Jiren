@@ -9,7 +9,7 @@ autoUpdater.logger.transports.file.level = "info";
 
 //Single export to check for and apply any available updated
 module.exports.updateChecker = () => {
-  autoUpdater.requestHeaders = { "PRIVATE-TOKEN": "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" };
+  autoUpdater.requestHeaders = { "PRIVATE-TOKEN": process.env.GH_TOKEN };
   //Check for update (GH Releases)
   console.log("Checking for updates");
   autoUpdater.checkForUpdatesAndNotify();

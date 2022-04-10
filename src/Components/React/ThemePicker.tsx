@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { useDispatch } from "react-redux";
 import { setTheme } from "../../Redux/themeSlice";
 import { Theme } from "../../Models/Theme";
-import { dark, light, night, jiren, sun, aragon, pink } from "../../Models/AppThemes";
+import { dark, light, night, jiren, sun, aragon, pink, marley } from "../../Models/AppThemes";
 
 export function ThemePicker() {
   const dispatch = useDispatch();
@@ -38,6 +38,9 @@ export function ThemePicker() {
         const pinkTheme: Theme = pink;
         dispatch(setTheme(pinkTheme));
         break;
+      case "marley":
+        const marleyTheme: Theme = marley;
+        dispatch(setTheme(marley));
     }
   }
 
@@ -81,6 +84,16 @@ export function ThemePicker() {
         }}
       >
         Pink
+      </Button>
+      <Button
+        onClick={() => onSelectTheme("marley")}
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(198,255,221,1) 0%, rgba(251,215,134,1) 50%, rgba(252,66,66,1) 100%)",
+          color: "white",
+        }}
+      >
+        Marley
       </Button>
     </div>
   );

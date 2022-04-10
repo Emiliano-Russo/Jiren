@@ -40,3 +40,9 @@ export const pink = {
     "linear-gradient(90deg, rgba(117,32,214,1) 0%, rgba(179,21,149,1) 31%, rgba(246,24,118,1) 100%)",
   letterColor: "white",
 };
+
+export const marley = {
+  bodyBackgroundColor: "linear-gradient(90deg, rgba(61,224,127,1) 0%, rgba(255,244,0,1) 50%, rgba(252,66,66,1) 100%)",
+  headerBackgroundColor: "linear-gradient(90deg, rgba(61,224,127,1) 0%, rgba(255,244,0,1) 50%, rgba(252,66,66,1) 100%)",
+  letterColor: "white",
+};

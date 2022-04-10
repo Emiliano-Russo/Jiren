@@ -1,6 +1,6 @@
 {
   "name": "jiren",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -77,7 +77,7 @@
   "main": "./public/electron.js",
   "build": {
     "appId": "com.electron.my_app",
-    "productName": "jiren",
+    "productName": "Jiren Games",
     "publish": {
       "provider": "github"
     },
