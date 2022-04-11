@@ -85,4 +85,33 @@ export const themes: Theme[] = [
       backgroundImage: "linear-gradient(to right, #f2709c, #ff9472)",
     },
   },
+  {
+    name: "Sea",
+    letterColor: "white",
+    buttonPreviewStyle: {
+      color: "white",
+      backgroundImage: "linear-gradient(90deg, #0beef9 0%, #48a9fe 74%)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(-90deg, #0beef9 0%, #48a9fe 74%)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(-90deg, #0beef9 0%, #48a9fe 74%)",
+    },
+  },
+  {
+    name: "Nacional",
+    letterColor: "white",
+    buttonPreviewStyle: {
+      color: "white",
+      backgroundImage: "linear-gradient(90deg, rgba(2,3,220,1) 0%, rgba(223,1,1,1) 80%, rgba(255,255,255,1) 100%)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(90deg, #0d3dff 0%, rgba(223,1,1,1) 80%",
+    },
+    bodyStyle: {
+      //backgroundImage: "linear-gradient(70deg, rgba(2,3,220,1) 0%, rgba(223,1,1,1) 80%, rgba(255,255,255,1) 100%)",
+      backgroundImage: "linear-gradient(90deg, #0d3dff 0%, rgba(223,1,1,1) 80%",
+    },
+  },
 ];
