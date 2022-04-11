@@ -7,11 +7,15 @@ import { ThemePicker } from "./ThemePicker";
 
 import { useSelector } from "react-redux";
 
+var pjson = require("../../../package.json");
+
 export function Header() {
   const [showAdminRoute, setShowAdminRoute] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const theme = useSelector((state: any) => state.theme.theme);
+  console.log("THEME: ");
+  console.log(theme);
 
   useEffect(() => {
     const result = localStorage.getItem("ShowAdminRoute");
@@ -35,7 +39,7 @@ export function Header() {
   }
 
   return (
-    <div className="header" style={{ backgroundImage: theme.headerBackgroundColor }}>
+    <div className="header" style={theme.headerStyle}>
       <div id="div">
         <Button
           id="hamburger"
@@ -49,6 +53,7 @@ export function Header() {
         <h1 style={{ color: theme.letterColor }}>Jiren Games</h1>
       </div>
       <div id="links">
+        <p style={{ color: theme.letterColor, padding: 5, position: "absolute", top: 0, right: 5 }}>v{pjson.version}</p>
         <NavLink
           to="/wish"
           className={({ isActive }) => (isActive ? "activeLink link" : "idleLink link")}

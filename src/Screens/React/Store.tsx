@@ -47,9 +47,15 @@ export function Store() {
 
   return (
     <div>
-      <Button id="refreshBtn" onClick={onRefresh} icon={<ReloadOutlined />}>
+      <Button
+        id="refreshBtn"
+        onClick={onRefresh}
+        icon={<ReloadOutlined />}
+        type="link"
+        style={{ position: "absolute", right: 5 }}
+      >
         {" "}
-        Reload
+        Refresh
       </Button>
 
       <div className="gameList">

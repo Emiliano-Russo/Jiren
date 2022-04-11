@@ -1,42 +1,88 @@
-export const dark = {
-  bodyBackgroundColor: "linear-gradient(50deg, #000000 0%, #434343 74%)",
-  headerBackgroundColor: "linear-gradient(90deg, #000000 0%, #434343 74%)",
-  letterColor: "white",
-};
+import { Theme } from "./Theme";
 
-export const light = {
-  bodyBackgroundColor: "linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%)",
-  headerBackgroundColor: "linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%)",
-  letterColor: "#000000",
-};
-
-export const night = {
-  bodyBackgroundColor: "linear-gradient(90deg, #0cbaba 0%, #380036 74%)",
-  headerBackgroundColor: "linear-gradient(35deg, #0cbaba 0%, #380036 74%)",
-  letterColor: "white",
-};
-
-export const jiren = {
-  bodyBackgroundColor: "linear-gradient(180deg, rgba(226,57,57,1) 0%, rgba(179,21,56,1) 11%, rgba(28,2,2,1) 100%)",
-  headerBackgroundColor: "linear-gradient(90deg, rgba(226,57,57,1) 0%, rgba(179,21,56,1) 11%, rgba(28,2,2,1) 100%)",
-  letterColor: "white",
-};
-
-export const sun = {
-  bodyBackgroundColor: "linear-gradient(180deg, #76daff 0%, #fcd000 74%)",
-  headerBackgroundColor: "linear-gradient(200deg, #76daff 0%, #fcd000 74%)",
-  letterColor: "black",
-};
-
-export const aragon = {
-  bodyBackgroundColor: "linear-gradient(to bottom, #FAFFD1, #A1FFCE)",
-  headerBackgroundColor: "linear-gradient(to top, #FAFFD1, #A1FFCE)",
-  letterColor: "black",
-};
-
-export const pink = {
-  bodyBackgroundColor: "linear-gradient(10deg, rgba(117,32,214,1) 0%, rgba(179,21,149,1) 31%, rgba(246,24,118,1) 100%)",
-  headerBackgroundColor:
-    "linear-gradient(90deg, rgba(117,32,214,1) 0%, rgba(179,21,149,1) 31%, rgba(246,24,118,1) 100%)",
-  letterColor: "white",
-};
+export const themes: Theme[] = [
+  {
+    name: "Dark",
+    letterColor: "white",
+    buttonPreviewStyle: {
+      color: "white",
+      backgroundImage: "linear-gradient(315deg, #485461 0%, #28313b 74%)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(35deg, #485461 0%, #28313b 74%)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(315deg, #485461 0%, #28313b 74%)",
+    },
+  },
+  {
+    name: "Light",
+    letterColor: "black",
+    buttonPreviewStyle: {
+      color: "black",
+      backgroundImage: "linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%)",
+    },
+  },
+  {
+    name: "Night",
+    letterColor: "white",
+    buttonPreviewStyle: {
+      color: "white",
+      backgroundImage: "linear-gradient(90deg, #0cbaba 0%, #380036 74%)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(30deg, #0cbaba 0%, #380036 74%)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(90deg, #0cbaba 0%, #380036 74%)",
+    },
+  },
+  {
+    name: "Beach",
+    letterColor: "black",
+    buttonPreviewStyle: {
+      color: "black",
+      backgroundImage: "linear-gradient(315deg, #f9ea8f 0%, #aff1da 74%)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(315deg, #f9ea8f 0%, #aff1da 74%)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(55deg, #f9ea8f 0%, #aff1da 74%)",
+    },
+  },
+  {
+    name: "Celestial",
+    letterColor: "white",
+    buttonPreviewStyle: {
+      color: "white",
+      backgroundImage: "linear-gradient(to right, #c33764, #1d2671)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(to right, #c33764, #1d2671)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(to right, #c33764, #1d2671)",
+    },
+  },
+  {
+    name: "Nelson",
+    letterColor: "white",
+    buttonPreviewStyle: {
+      color: "white",
+      backgroundImage: "linear-gradient(to right, #f2709c, #ff9472)",
+    },
+    headerStyle: {
+      backgroundImage: "linear-gradient(to right, #f2709c, #ff9472)",
+    },
+    bodyStyle: {
+      backgroundImage: "linear-gradient(to right, #f2709c, #ff9472)",
+    },
+  },
+];

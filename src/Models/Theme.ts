@@ -1,5 +1,7 @@
 export interface Theme {
-  bodyBackgroundColor: string;
-  headerBackgroundColor: string;
+  name: string;
   letterColor: string;
+  buttonPreviewStyle: object;
+  headerStyle: object;
+  bodyStyle: object;
 }

@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 export default function App() {
   const theme = useSelector((state: any) => state.theme.theme);
   return (
-    <div className="App" style={{ backgroundImage: theme.bodyBackgroundColor }}>
+    <div className="App" style={theme.bodyStyle}>
       <HashRouter>
         <Header />
         <Routes>
