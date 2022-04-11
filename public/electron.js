@@ -24,9 +24,6 @@ if (!fs.existsSync(dir)) {
 const createWindow = () => {
   //Check for app updated after 3 seconds
   setTimeout(updateChecker, 3000);
-  console.log("ARE WE ON DEV MODE? ");
-  isDev ? console.log("YES") : console.log("NO");
-
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     frame: true, // removes the frame from the BrowserWindow. It is advised that you either create a custom menu bar or remove this line
@@ -36,6 +33,9 @@ const createWindow = () => {
       enableRemoteModule: true,
       contextIsolation: false,
     },
+    width: 1360,
+    height: 700,
+    autoHideMenuBar: !isDev,
   });
   //dialog.showErrorBox("ERROR");
   // load the index.html of the app. (or localhost on port 3000 if you're in development)

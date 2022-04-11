@@ -4,7 +4,7 @@ import { Theme } from "../Models/Theme";
 
 const initialState = localStorage.getItem("theme");
 let initial = themes[1]; // light
-if (initialState) {
+if (initialState != null) {
   initial = JSON.parse(initialState);
 }
 
