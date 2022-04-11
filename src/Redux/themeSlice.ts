@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { themes } from "../Models/AppThemes";
 import { Theme } from "../Models/Theme";
-import { light } from "../Models/AppThemes";
 
 const initialState = localStorage.getItem("theme");
-let initial = light;
+let initial = themes[1]; // light
 if (initialState) {
   initial = JSON.parse(initialState);
 }

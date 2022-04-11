@@ -11,6 +11,7 @@ const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
 const { getInstalledGames } = require("./gameManipulation/gameFinder.cjs");
 const { getPage } = require("./wish/main.cjs");
 const { updateChecker } = require("./updater");
+const { Console } = require("console");
 
 const dir = "C:/Users/" + username + "/Documents/JirenGames";
 if (!fs.existsSync(dir)) {
@@ -23,6 +24,8 @@ if (!fs.existsSync(dir)) {
 const createWindow = () => {
   //Check for app updated after 3 seconds
   setTimeout(updateChecker, 3000);
+  console.log("ARE WE ON DEV MODE? ");
+  isDev ? console.log("YES") : console.log("NO");
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({

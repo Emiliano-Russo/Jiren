@@ -14,6 +14,8 @@ export function Header() {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
   const theme = useSelector((state: any) => state.theme.theme);
+  console.log("THEME: ");
+  console.log(theme);
 
   useEffect(() => {
     const result = localStorage.getItem("ShowAdminRoute");
@@ -37,7 +39,7 @@ export function Header() {
   }
 
   return (
-    <div className="header" style={{ backgroundImage: theme.headerBackgroundColor }}>
+    <div className="header" style={theme.headerStyle}>
       <div id="div">
         <Button
           id="hamburger"
