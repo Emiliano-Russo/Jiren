@@ -10,14 +10,21 @@ const { ipcRenderer } = window.require("electron");
 
 export function Library() {
   const [gameList, setGameList] = useState<Game[]>([]);
+  const [deletingGame, setDeletingGame] = useState(false);
 
   useEffect(() => {
     ipcRenderer.on("get-installed-games", onGettingInstalledGames);
     ipcRenderer.send("get-installed-games", "");
+    ipcRenderer.on("gameRemoved", onRemovedGame);
     return () => {
       ipcRenderer.removeListener("get-installed-games", onGettingInstalledGames);
+      ipcRenderer.removeListener("gameRemoved", onRemovedGame);
     };
   }, []);
+
+  const onRemovedGame = () => {
+    setDeletingGame(false);
+  };
 
   const onGettingInstalledGames = (event: any, gameNameList: string[]) => {
     const arr = gameNameList.map((gameName) => {
@@ -47,6 +54,7 @@ export function Library() {
   };
 
   const onDeleteGame = (gameName: string) => {
+    setDeletingGame(true);
     ipcRenderer.send("delete-game", gameName);
     clickRefresh();
   };
@@ -57,6 +65,7 @@ export function Library() {
 
   return (
     <div style={{ marginTop: "2rem" }}>
+      {deletingGame ? <p style={{ margin: "0 auto" }}>Deleting Game....</p> : null}
       <div className="gameList">
         {gameList.map((game) => {
           return (

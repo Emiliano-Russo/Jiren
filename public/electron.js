@@ -86,10 +86,7 @@ ipcMain.on("play-game", function (event, gameName) {
 
 ipcMain.on("delete-game", function (event, gameName) {
   deleteGame(gameName, dir);
-});
-
-ipcMain.on("delete-game", function (event, gameName) {
-  deleteGame(gameName, dir);
+  event.sender.send("gameRemoved", "removed");
 });
 
 ipcMain.on("get-page", function (event, pageNmbr) {
