@@ -1,6 +1,6 @@
 import { Game } from "../Models/Game";
 import { db } from "../Firebase/FirebaseConfig";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { copySync } from "fs-extra";
 import { resolve } from "dns";
 
@@ -29,6 +29,26 @@ export class FireStoreController {
     });
   }
 
+  async getAllGamesID(): Promise<any[]> {
+    return new Promise(async function (resolve, reject) {
+      const resList = await getDocs(collection(db, "Games"));
+      const list = resList.docs.map((value) => {
+        return value.id;
+      });
+      resolve(list);
+    });
+  }
+
+  async getAllGamesTitles(): Promise<any[]> {
+    return new Promise(async function (resolve, reject) {
+      const resList = await getDocs(collection(db, "Games"));
+      const list = resList.docs.map((value) => {
+        return value.data().title;
+      });
+      resolve(list);
+    });
+  }
+
   async getGame(title: string): Promise<any> {
     return new Promise(async function (resolve, reject) {
       const q = await query(gamesRef, where("title", "==", title));
@@ -40,6 +60,12 @@ export class FireStoreController {
       });
       resolve(undefined);
     });
+  }
+
+  async updateGame(gameID: string, gameObj: any) {
+    console.log("Game ID: " + gameID);
+    console.log("GAME OBJ: ");
+    console.log(gameObj);
   }
 
   async tokenIsValid(token: string): Promise<boolean> {
@@ -55,7 +81,11 @@ export class FireStoreController {
   async addGame(gameNameId: string, game: Game): Promise<void> {
     return new Promise(async function (resolve, reject) {
       const q = await setDoc(doc(gamesRef, gameNameId), game);
-      resolve();
+      resolve(q);
     });
+  }
+
+  async deleteGame(gameId: string): Promise<void> {
+    return deleteDoc(doc(db, "Games", gameId));
   }
 }
