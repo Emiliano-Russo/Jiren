@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Spin } from "antd";
+import { Button, Form, Input, message, Modal, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FireStoreController } from "../../../Storage/FireStoreController";
@@ -20,10 +20,25 @@ export const EditGame = () => {
     setAllGames();
   }, []);
 
+  const success = () => {
+    message.success("Game Uploaded");
+  };
+
+  const error = () => {
+    message.error("Error while Uploading");
+  };
+
   const onFinish = async (values: any) => {
     Object.keys(values).forEach((key) => (values[key] === undefined ? delete values[key] : {}));
-    const clonedValues = delete clone(values)["gameId"];
-    FireStoreController.Instance.updateGame(values.gameId, clonedValues);
+    const clonedValues = clone(values);
+    delete clonedValues.gameId;
+    FireStoreController.Instance.updateGame(values.gameId, clonedValues)
+      .then((value) => {
+        success();
+      })
+      .catch((err) => {
+        error();
+      });
   };
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
@@ -86,16 +101,16 @@ export const EditGame = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          width: "300px",
+          padding: 10,
           background: "white",
-          margin: "10px auto",
+          margin: "50px auto",
           textAlign: "center",
         }}
       >
         <h1 style={{ color: "red" }}>Game IDS</h1>
         {gameList.map((game) => {
           return (
-            <div key={game} style={{ background: "white" }}>
+            <div key={game} style={{ background: "beige", margin: 5 }}>
               <h1>{game}</h1>
             </div>
           );

@@ -63,9 +63,8 @@ export class FireStoreController {
   }
 
   async updateGame(gameID: string, gameObj: any) {
-    console.log("Game ID: " + gameID);
-    console.log("GAME OBJ: ");
-    console.log(gameObj);
+    const gameRef = doc(db, "Games", gameID);
+    return setDoc(gameRef, gameObj, { merge: true });
   }
 
   async tokenIsValid(token: string): Promise<boolean> {
