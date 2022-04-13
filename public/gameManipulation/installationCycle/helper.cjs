@@ -24,13 +24,15 @@ module.exports.findFirstMatchOnPath = function fromDir(startPath, filter) {
     return;
   }
   var files = fs.readdirSync(startPath);
+  let lastChance = "";
   for (var i = 0; i < files.length; i++) {
     var filename = path.join(startPath, files[i]);
     var stat = fs.lstatSync(filename);
     if (stat.isDirectory()) {
-      const result = fromDir(filename, filter); //recurse
+      continue;
+      /*const result = fromDir(filename, filter); //recurse
       if (result === undefined) continue;
-      else return result;
+      else return result;*/
     } else if (filename.indexOf(filter) >= 0) {
       return filename;
     }
