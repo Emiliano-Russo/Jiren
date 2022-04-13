@@ -65,7 +65,9 @@ export function Library() {
 
   return (
     <div style={{ marginTop: "2rem" }}>
-      {deletingGame ? <p style={{ margin: "0 auto" }}>Deleting Game....</p> : null}
+      {deletingGame ? (
+        <h1 style={{ margin: "0 auto", textAlign: "center", fontWeight: "bold" }}>Deleting Game....</h1>
+      ) : null}
       <div className="gameList">
         {gameList.map((game) => {
           return (

@@ -13,7 +13,7 @@ export function Store() {
   const [loadingGames, setLoadingGames] = useState(false);
 
   const success = (title: string) => {
-    message.success(title + " => Now in Downloads");
+    message.success("In Downloads!");
   };
 
   const prepareList = async () => {
