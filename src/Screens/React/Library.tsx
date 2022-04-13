@@ -1,3 +1,4 @@
+import { Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { GameCard } from "../../Components/React/GameCard";
 import { Game } from "../../Models/Game";
@@ -9,6 +10,7 @@ import "../Css/Library.css";
 const { ipcRenderer } = window.require("electron");
 
 export function Library() {
+  const [gamelistBuckUp, setGameListBuckUp] = useState<Game[]>([]);
   const [gameList, setGameList] = useState<Game[]>([]);
   const [deletingGame, setDeletingGame] = useState(false);
 
@@ -47,6 +49,7 @@ export function Library() {
       return element !== undefined;
     });
     setGameList(filteredArr);
+    setGameListBuckUp(filteredArr);
   };
 
   const onBtnPlay = (gameName: string) => {
@@ -63,11 +66,26 @@ export function Library() {
     ipcRenderer.send("get-installed-games", "");
   };
 
+  const onChange = (e: any) => {
+    const value = e.target.value.toUpperCase();
+    if (value == "") {
+      setGameList(gamelistBuckUp);
+      return;
+    }
+    const filterResult = gamelistBuckUp.filter((game) => game.title.toUpperCase().includes(value));
+    setGameList(filterResult);
+  };
+
   return (
-    <div style={{ marginTop: "2rem" }}>
+    <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
       {deletingGame ? (
         <h1 style={{ margin: "0 auto", textAlign: "center", fontWeight: "bold" }}>Deleting Game....</h1>
       ) : null}
+      <Input
+        placeholder="Game Name"
+        onChange={onChange}
+        style={{ width: "400px", minWidth: "40%", marginTop: "50px" }}
+      />
       <div className="gameList">
         {gameList.map((game) => {
           return (

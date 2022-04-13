@@ -83,7 +83,7 @@ export function Downloads() {
         </div>
       </div>
       <div className="downloading">
-        <h1 style={{ color: theme.letterColor }}>{downloadingGameName}</h1>
+        <h1 style={{ color: theme.letterColor, padding: "50px" }}>{downloadingGameName}</h1>
         <h2 style={{ color: theme.letterColor }}>{feedBack}</h2>
         {downloadingGameName != "" ? <Spin size="large" style={{ marginTop: "2rem" }} /> : null}
       </div>
