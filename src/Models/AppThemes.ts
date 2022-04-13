@@ -72,7 +72,7 @@ export const themes: Theme[] = [
     },
   },
   {
-    name: "Nelson",
+    name: "Rose",
     letterColor: "white",
     buttonPreviewStyle: {
       color: "white",

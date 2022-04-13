@@ -8,7 +8,7 @@ const os = require("os");
 const username = os.userInfo().username;
 const { playGame } = require("./gameManipulation/gameStarter.cjs");
 const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
-const { getInstalledGames } = require("./gameManipulation/gameFinder.cjs");
+const { getInstalledGames, isThisGameInstalled } = require("./gameManipulation/gameFinder.cjs");
 const { getPage } = require("./wish/main.cjs");
 const { updateChecker } = require("./updater");
 const { Console } = require("console");
@@ -78,6 +78,11 @@ ipcMain.on("download", async function (event, game) {
 ipcMain.on("get-installed-games", function (event, arg) {
   const gameList = getInstalledGames(dir);
   event.sender.send("get-installed-games", gameList);
+});
+
+ipcMain.on("is-game-installed", function (event, title) {
+  const isGameInstalled = isThisGameInstalled(dir, title);
+  event.sender.send("is-game-installed", { name: title, isInstalled: isGameInstalled });
 });
 
 ipcMain.on("play-game", function (event, gameName) {

@@ -7,6 +7,7 @@ import { Button, Input, Spin } from "antd";
 import "../Css/Store.css";
 import { message } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
+const { ipcRenderer } = window.require("electron");
 
 export function Store() {
   const [gamelistBuckUp, setGameListBuckUp] = useState<Game[]>([]);
@@ -16,6 +17,17 @@ export function Store() {
   const success = (title: string) => {
     message.success("In Downloads!");
   };
+
+  const info = () => {
+    message.info("Game in Library!");
+  };
+
+  useEffect(() => {
+    ipcRenderer.on("is-game-installed", isGameInstalled);
+    return () => {
+      ipcRenderer.removeListener("is-game-installed", isGameInstalled);
+    };
+  }, [gamelistBuckUp, games]);
 
   const prepareList = async () => {
     const gameList: Game[] = await FireStoreController.Instance.getAllGames();
@@ -36,11 +48,7 @@ export function Store() {
   }, []);
 
   const onDownload = (name: string) => {
-    const index = games.findIndex((x, index) => {
-      return x.title == name;
-    });
-    Memory.addGameToDownloads(games[index]);
-    success(name);
+    ipcRenderer.send("is-game-installed", name);
   };
 
   const onRefresh = () => {
@@ -60,6 +68,18 @@ export function Store() {
     }
     const filterResult = gamelistBuckUp.filter((game) => game.title.toUpperCase().includes(value));
     setGames(filterResult);
+  };
+
+  const isGameInstalled = (evnt?: any, obj?: any) => {
+    if (obj.isInstalled) {
+      info();
+    } else {
+      const index = gamelistBuckUp.findIndex((x, index) => {
+        return x.title == obj.name;
+      });
+      Memory.addGameToDownloads(gamelistBuckUp[index]);
+      success(obj.name);
+    }
   };
 
   const { Search } = Input;
