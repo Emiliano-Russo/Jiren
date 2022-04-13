@@ -74,7 +74,7 @@ export function Store() {
       <Input
         placeholder="Game Name"
         onChange={onChange}
-        style={{ width: "400px", minWidth: "40%", marginTop: "50px" }}
+        style={{ minWidth: "200px", width: "35%", marginTop: "50px" }}
       />
 
       <div className="gameList">

@@ -77,14 +77,14 @@ export function Library() {
   };
 
   return (
-    <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       {deletingGame ? (
         <h1 style={{ margin: "0 auto", textAlign: "center", fontWeight: "bold" }}>Deleting Game....</h1>
       ) : null}
       <Input
         placeholder="Game Name"
         onChange={onChange}
-        style={{ width: "400px", minWidth: "40%", marginTop: "50px" }}
+        style={{ minWidth: "200px", width: "35%", marginTop: "50px" }}
       />
       <div className="gameList">
         {gameList.map((game) => {
