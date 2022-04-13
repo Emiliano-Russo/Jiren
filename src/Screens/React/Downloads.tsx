@@ -64,9 +64,7 @@ export function Downloads() {
   return (
     <div className="downloads">
       <div id="style-5" className="queue">
-        <h1 style={{ color: theme.letterColor, fontWeight: "bold", textDecoration: "underline" }}>
-          Pending for download
-        </h1>
+        <h1 style={{ color: theme.letterColor, fontWeight: "bold", fontSize: "35px" }}>Pending</h1>
         <div className="backgroundQueue">
           {gameList.map((game) => {
             return (
