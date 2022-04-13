@@ -7,7 +7,7 @@ import { FireStoreController } from "../../Storage/FireStoreController";
 import { Game } from "../../Models/Game";
 import "../Css/Downloads.css";
 import { clone } from "../../Utils/Cloner";
-import { Spin } from "antd";
+import { message, Spin } from "antd";
 
 const { ipcRenderer } = window.require("electron");
 
@@ -17,10 +17,15 @@ export function Downloads() {
   const [feedBack, setFeedBack] = useState<string>("");
   const theme = useSelector((state: any) => state.theme.theme);
 
+  const success = () => {
+    message.success("In Library!");
+  };
+
   function onDownloadReady(event: any, arg: any) {
     Memory.removeGameFromDownloads(arg);
     setDownloadingGameName("");
     setFeedBack("");
+    success();
   }
 
   function progressDownload(event?: any, arg?: any) {
@@ -58,8 +63,8 @@ export function Downloads() {
 
   return (
     <div className="downloads">
-      <div id="#style-6" className="queue">
-        <h1 style={{ color: theme.letterColor }}>Queue</h1>
+      <div id="style-5" className="queue">
+        <h1 style={{ color: theme.letterColor, fontWeight: "bold", fontSize: "35px" }}>Pending</h1>
         <div className="backgroundQueue">
           {gameList.map((game) => {
             return (
@@ -76,7 +81,7 @@ export function Downloads() {
         </div>
       </div>
       <div className="downloading">
-        <h1 style={{ color: theme.letterColor }}>{downloadingGameName}</h1>
+        <h1 style={{ color: theme.letterColor, padding: "50px" }}>{downloadingGameName}</h1>
         <h2 style={{ color: theme.letterColor }}>{feedBack}</h2>
         {downloadingGameName != "" ? <Spin size="large" style={{ marginTop: "2rem" }} /> : null}
       </div>

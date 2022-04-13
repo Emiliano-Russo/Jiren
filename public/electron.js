@@ -8,7 +8,7 @@ const os = require("os");
 const username = os.userInfo().username;
 const { playGame } = require("./gameManipulation/gameStarter.cjs");
 const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
-const { getInstalledGames } = require("./gameManipulation/gameFinder.cjs");
+const { getInstalledGames, isThisGameInstalled } = require("./gameManipulation/gameFinder.cjs");
 const { getPage } = require("./wish/main.cjs");
 const { updateChecker } = require("./updater");
 const { Console } = require("console");
@@ -49,12 +49,23 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-  createWindow();
-  app.on("activate", () => {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
+  dialog
+    .showMessageBox({
+      type: "info",
+      title: "Welcome to Jiren Games!",
+      message: "-No Avast Antivirus\n-Open Steam ",
+      buttons: ["Ok"],
+    })
+    .then((result) => {
+      let buttonIndex = result.response;
+
+      if (buttonIndex === 0) {
+        createWindow();
+        app.on("activate", () => {
+          if (BrowserWindow.getAllWindows().length === 0) createWindow();
+        });
+      }
+    });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -80,16 +91,18 @@ ipcMain.on("get-installed-games", function (event, arg) {
   event.sender.send("get-installed-games", gameList);
 });
 
+ipcMain.on("is-game-installed", function (event, title) {
+  const isGameInstalled = isThisGameInstalled(dir, title);
+  event.sender.send("is-game-installed", { name: title, isInstalled: isGameInstalled });
+});
+
 ipcMain.on("play-game", function (event, gameName) {
   playGame(gameName, dir);
 });
 
 ipcMain.on("delete-game", function (event, gameName) {
   deleteGame(gameName, dir);
-});
-
-ipcMain.on("delete-game", function (event, gameName) {
-  deleteGame(gameName, dir);
+  event.sender.send("gameRemoved", "removed");
 });
 
 ipcMain.on("get-page", function (event, pageNmbr) {

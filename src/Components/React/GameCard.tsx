@@ -15,7 +15,7 @@ export const GameCard = (props: props) => {
     <div className="gameCard">
       {props.onClose ? (
         <button className="closeBtn" onClick={() => (props.onClose ? props.onClose(props.title) : null)}>
-          X
+          Delete
         </button>
       ) : null}
       <img src={props.imgUrl} />

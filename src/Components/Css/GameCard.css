@@ -10,6 +10,7 @@
   background-color: white;
   color: black;
   text-align: center;
+  border-radius: 20px;
 }
 
 .gameCard .closeBtn {
@@ -30,6 +31,8 @@
 .gameCard img {
   width: 100%;
   max-height: 200px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 .gameCard h2 {
   margin-left: 1rem;
