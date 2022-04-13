@@ -81,7 +81,7 @@ export function AddGame() {
         <Form.Item label="Total Size" name="totalSize" rules={[{ required: true, message: "Game Size" }]}>
           <Input placeholder="5GB" />
         </Form.Item>
-        <Form.Item label="Crack Link" name="crackUrl" rules={[{ required: true, message: "Game Crack" }]}>
+        <Form.Item label="Crack Link" name="crackUrl" rules={[{ required: false, message: "Game Crack" }]}>
           <Input />
         </Form.Item>
         <Form.Item
