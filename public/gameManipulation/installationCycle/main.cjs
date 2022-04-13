@@ -39,7 +39,7 @@ async function unCompressAllFiles(listLocationCompressedFiles, destiny, event) {
   return new Promise(async function (resolve, reject) {
     event.sender.send("feedBack", "Uncompressing...");
     for (locationCompressedFile of listLocationCompressedFiles) {
-      const resUncompress = await unCompress(locationCompressedFile, destiny);
+      const resUncompress = await unCompress(locationCompressedFile, destiny, event);
     }
     resolve();
   });
