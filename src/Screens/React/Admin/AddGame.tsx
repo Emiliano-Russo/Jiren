@@ -22,7 +22,7 @@ export function AddGame() {
   const onFinish = async (values: any) => {
     setSubmiting(true);
     const gameId = values.gameId;
-    const newGame = {
+    const newGame: any = {
       title: values.title,
       description: values.description,
       downloadLinks: values.downloadLinks,
@@ -31,14 +31,18 @@ export function AddGame() {
       youtubeTrailerUrl: values.youtubeTrailerUrl,
       imgUrl: values.imgUrl,
     };
+    Object.keys(newGame).forEach((key) => (newGame[key] === undefined ? delete newGame[key] : {}));
     FireStoreController.Instance.addGame(gameId, newGame)
       .then((value) => {
         success();
+        console.log("Sucess");
       })
       .catch((error) => {
         error();
+        console.log("Error");
       })
       .finally(() => {
+        console.log("Finally");
         setSubmiting(false);
       });
   };
