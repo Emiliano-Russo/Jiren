@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FireStoreController } from "../../../Storage/FireStoreController";
 import { Input, Button, Spin } from "antd";
+import { arraysEqual } from "../../../Utils/Equals";
 
 export const RemoveGame = () => {
   let history = useNavigate();
@@ -9,20 +10,25 @@ export const RemoveGame = () => {
   const [loadingGames, setLoadingGames] = useState(true);
   const [deletingGame, setDeletingGame] = useState(false);
 
+  const setAllGames = async () => {
+    const games = await FireStoreController.Instance.getAllGamesID();
+    console.log("ALL THE GAMES");
+    setGameList((prev) => {
+      const equals = arraysEqual(prev, games);
+      return equals ? prev : games;
+    });
+    setLoadingGames(false);
+  };
+
   useEffect(() => {
-    const setAllGames = async () => {
-      const games = await FireStoreController.Instance.getAllGamesID();
-      console.log("ALL THE GAMES");
-      setGameList(games);
-      setLoadingGames(false);
-    };
     setAllGames();
-  }, []);
+  }, [gameList]);
 
   const deleteGame = async (id: string) => {
     setDeletingGame(true);
     const result = await FireStoreController.Instance.deleteGame(id);
     setDeletingGame(false);
+    setAllGames();
   };
 
   return (

@@ -31,14 +31,18 @@ export function AddGame() {
       youtubeTrailerUrl: values.youtubeTrailerUrl,
       imgUrl: values.imgUrl,
     };
+    Object.keys(newGame).forEach((key) => (newGame[key] === undefined ? delete newGame[key] : {}));
     FireStoreController.Instance.addGame(gameId, newGame)
       .then((value) => {
         success();
+        console.log("Sucess");
       })
       .catch((error) => {
         error();
+        console.log("Error");
       })
       .finally(() => {
+        console.log("Finally");
         setSubmiting(false);
       });
   };
