@@ -22,7 +22,7 @@ export function AddGame() {
   const onFinish = async (values: any) => {
     setSubmiting(true);
     const gameId = values.gameId;
-    const newGame = {
+    const newGame: any = {
       title: values.title,
       description: values.description,
       downloadLinks: values.downloadLinks,
