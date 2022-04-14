@@ -31,6 +31,7 @@ export const EditGame = () => {
   const onFinish = async (values: any) => {
     Object.keys(values).forEach((key) => (values[key] === undefined ? delete values[key] : {}));
     const clonedValues = clone(values);
+    if (clonedValues.downloadLinks) clonedValues.downloadLinks = clonedValues.downloadLinks.split(",");
     delete clonedValues.gameId;
     FireStoreController.Instance.updateGame(values.gameId, clonedValues)
       .then((value) => {
