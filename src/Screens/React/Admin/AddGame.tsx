@@ -19,19 +19,31 @@ export function AddGame() {
 
   let history = useNavigate();
 
+  interface newGame {
+    title: string;
+    description: string;
+    downloadLinks: string[];
+    crackUrl?: string;
+    totalSize: string;
+    youtubeTrailerUrl: string;
+    imgUrl: string;
+  }
+
   const onFinish = async (values: any) => {
     setSubmiting(true);
     const gameId = values.gameId;
-    const newGame: any = {
+    const newGame: newGame = {
       title: values.title,
       description: values.description,
-      downloadLinks: values.downloadLinks,
+      downloadLinks: values.downloadLinks.split(","),
       crackUrl: values.crackUrl,
       totalSize: values.totalSize,
       youtubeTrailerUrl: values.youtubeTrailerUrl,
       imgUrl: values.imgUrl,
     };
-    Object.keys(newGame).forEach((key) => (newGame[key] === undefined ? delete newGame[key] : {}));
+
+    if (newGame.crackUrl === undefined) newGame.crackUrl = "";
+
     FireStoreController.Instance.addGame(gameId, newGame)
       .then((value) => {
         success();
