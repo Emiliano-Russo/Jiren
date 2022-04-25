@@ -11,11 +11,10 @@ const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
 const { getInstalledGames, isThisGameInstalled } = require("./gameManipulation/gameFinder.cjs");
 const { getPage } = require("./wish/main.cjs");
 const { updateChecker } = require("./updater");
-const { Console } = require("console");
+const { mainDir } = require("./constants.cjs");
 
-const dir = "C:/Users/" + username + "/Documents/JirenGames";
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir, (err) => {
+if (!fs.existsSync(mainDir)) {
+  fs.mkdirSync(mainDir, (err) => {
     console.log("**ERROR**");
     console.log(err);
   });
@@ -87,12 +86,12 @@ ipcMain.on("download", async function (event, game) {
 });
 
 ipcMain.on("get-installed-games", function (event, arg) {
-  const gameList = getInstalledGames(dir);
+  const gameList = getInstalledGames();
   event.sender.send("get-installed-games", gameList);
 });
 
 ipcMain.on("is-game-installed", function (event, title) {
-  const isGameInstalled = isThisGameInstalled(dir, title);
+  const isGameInstalled = isThisGameInstalled(title);
   event.sender.send("is-game-installed", { name: title, isInstalled: isGameInstalled });
 });
 

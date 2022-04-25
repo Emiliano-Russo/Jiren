@@ -1,6 +1,7 @@
 const { readdirSync } = require("fs");
+const { mainDir } = require("../constants.cjs");
 
-module.exports.getInstalledGames = (mainDir) => {
+module.exports.getInstalledGames = () => {
   const directories = readdirSync(mainDir, { withFileTypes: true })
     .filter((dirent) => {
       return dirent.isDirectory();
@@ -9,7 +10,7 @@ module.exports.getInstalledGames = (mainDir) => {
   return directories;
 };
 
-module.exports.isThisGameInstalled = (mainDir, title) => {
+module.exports.isThisGameInstalled = (title) => {
   const gameList = this.getInstalledGames(mainDir);
   const filter = gameList.find((folderName) => folderName === title);
   return filter != undefined;

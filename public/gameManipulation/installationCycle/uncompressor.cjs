@@ -5,6 +5,7 @@ const _7z = require("7zip-min");
 const { detectCompressionType, createFolder } = require("./helper.cjs");
 
 module.exports.unCompress = function unCompress(location, dest, event) {
+  process.noAsar = true;
   return new Promise(async function (resolve, reject) {
     createFolder(dest);
     const compressionType = detectCompressionType(location);

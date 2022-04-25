@@ -2,10 +2,11 @@ const exec = require("child_process").execFile;
 const fs = require("fs");
 const path = require("path");
 const { findFirstMatchOnPath } = require("./installationCycle/helper.cjs");
+const { mainDir } = require("../constants.cjs");
 
 //gameName == game.title == folder Name
-module.exports.playGame = function playGame(gameName, allGamesDirectory) {
-  const exeLocation = getGameExe(gameName, allGamesDirectory);
+module.exports.playGame = function playGame(gameName) {
+  const exeLocation = getGameExe(gameName);
   console.log("Exe location: ");
   console.log(exeLocation);
   exec(exeLocation, function (err, data) {
@@ -14,9 +15,9 @@ module.exports.playGame = function playGame(gameName, allGamesDirectory) {
   });
 };
 
-function getGameExe(gameName, allGamesDirectory) {
+function getGameExe(gameName) {
   //Magic
-  const baseDir = allGamesDirectory + "/" + gameName + "/Uncompress/";
+  const baseDir = mainDir + "/" + gameName + "/Uncompress/";
   const finalDir = baseDir + fs.readdirSync(baseDir).filter((val) => !val.includes("rack"))[0];
   console.log("% Final Dir: ");
   console.log(finalDir);
