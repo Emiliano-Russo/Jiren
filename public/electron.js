@@ -2,21 +2,22 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
-const { beginInstallationCycle } = require("./gameManipulation/installationCycle/main.cjs");
+const { beginInstallationCycle } = require("./js/gameManipulation/installationCycle/main.cjs");
 const fs = require("fs");
 const os = require("os");
 const username = os.userInfo().username;
-const { playGame } = require("./gameManipulation/gameStarter.cjs");
-const { deleteGame } = require("./gameManipulation/gameRemover.cjs");
-const { getInstalledGames, isThisGameInstalled } = require("./gameManipulation/gameFinder.cjs");
-const { getPage } = require("./wish/main.cjs");
-const { updateChecker } = require("./updater");
-const { mainDir } = require("./constants.cjs");
+const { playGame } = require("./js/gameManipulation/gameStarter.cjs");
+const { deleteGame } = require("./js/gameManipulation/gameRemover.cjs");
+const { getInstalledGames, isThisGameInstalled } = require("./js/gameManipulation/gameFinder.cjs");
+const { getPage } = require("./js/wish/main.cjs");
+const { updateChecker } = require("./js/updater");
+const { mainDir, showError } = require("./js/global.cjs");
 
 if (!fs.existsSync(mainDir)) {
   fs.mkdirSync(mainDir, (err) => {
     console.log("**ERROR**");
     console.log(err);
+    showError(err);
   });
 }
 
@@ -96,11 +97,12 @@ ipcMain.on("is-game-installed", function (event, title) {
 });
 
 ipcMain.on("play-game", function (event, gameName) {
-  playGame(gameName, dir);
+  playGame(gameName, mainDir);
 });
 
 ipcMain.on("delete-game", function (event, gameName) {
-  deleteGame(gameName, dir);
+  console.log("DELETING GAME: ");
+  deleteGame(gameName, mainDir);
   event.sender.send("gameRemoved", "removed");
 });
 

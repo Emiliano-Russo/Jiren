@@ -1,5 +1,5 @@
 const { readdirSync } = require("fs");
-const { mainDir } = require("../constants.cjs");
+const { mainDir } = require("../global.cjs");
 
 module.exports.getInstalledGames = () => {
   const directories = readdirSync(mainDir, { withFileTypes: true })

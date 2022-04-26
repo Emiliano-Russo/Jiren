@@ -1,5 +1,6 @@
 const fs = require("fs");
 const https = require("https");
+const { showError } = require("../../global.cjs");
 
 module.exports.downloadFile = function download(url, dest, event) {
   return new Promise(async function (resolve, reject) {
@@ -14,6 +15,7 @@ module.exports.downloadFile = function download(url, dest, event) {
         console.log(err);
         // Handle errors
         fs.unlink(dest); // Delete the file async. (But we don't check the result)
+        showError(err.message);
         reject(err.message);
       });
     file.on("finish", () => {

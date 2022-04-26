@@ -2,7 +2,7 @@ const exec = require("child_process").execFile;
 const fs = require("fs");
 const path = require("path");
 const { findFirstMatchOnPath } = require("./installationCycle/helper.cjs");
-const { mainDir } = require("../constants.cjs");
+const { mainDir, showError } = require("../global.cjs");
 
 //gameName == game.title == folder Name
 module.exports.playGame = function playGame(gameName) {
@@ -10,8 +10,10 @@ module.exports.playGame = function playGame(gameName) {
   console.log("Exe location: ");
   console.log(exeLocation);
   exec(exeLocation, function (err, data) {
-    console.log(err);
-    console.log(data.toString());
+    //console.log(err);
+    //console.log(data.toString());
+    const errorMessage = err.toString();
+    showError(errorMessage);
   });
 };
 

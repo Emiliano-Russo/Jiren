@@ -12,7 +12,7 @@ module.exports.updateChecker = () => {
   autoUpdater.requestHeaders = { "PRIVATE-TOKEN": process.env.GH_TOKEN };
   //Check for update (GH Releases)
   console.log("Checking for updates");
-  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.checkForUpdates();
 
   /*autoUpdater.on("update-available", () => {
     //Prompt user to start download
@@ -38,11 +38,16 @@ module.exports.updateChecker = () => {
   autoUpdater.on("error", (error) => {
     console.log("############## ERROR ###############");
     console.log(error);
+    if (typeof error === "string" || error instanceof String) showError(error);
+    else showError(error.toString());
+  });
+
+  autoUpdater.on("update-available", (something) => {
     dialog.showMessageBox({
-      type: "error",
-      title: "ERROR",
-      message: "ERROR JUST NOW",
-      buttons: ["Update", "No"],
+      type: "info",
+      title: "Update Availabel!",
+      message: "Downloading in progress",
+      buttons: ["Ok i just wait"],
     });
   });
 
