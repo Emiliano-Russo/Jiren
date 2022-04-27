@@ -1,6 +1,5 @@
 const exec = require("child_process").execFile;
 const fs = require("fs");
-const path = require("path");
 const { findFirstMatchOnPath } = require("./installationCycle/helper.cjs");
 const { mainDir, showError } = require("../global.cjs");
 
