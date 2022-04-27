@@ -2,28 +2,30 @@
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
-const { beginInstallationCycle } = require("./js/gameManipulation/installationCycle/main.cjs");
 const fs = require("fs");
-const os = require("os");
-const username = os.userInfo().username;
-const { playGame } = require("./js/gameManipulation/gameStarter.cjs");
-const { deleteGame } = require("./js/gameManipulation/gameRemover.cjs");
-const { getInstalledGames, isThisGameInstalled } = require("./js/gameManipulation/gameFinder.cjs");
-const { getPage } = require("./js/wish/main.cjs");
-const { updateChecker } = require("./js/updater");
-const { mainDir, showError } = require("./js/global.cjs");
+const { Initializer } = require("./initializer.cjs");
+//
+const creator = new Initializer();
+const main = creator.buildMain();
+const gameStarter = creator.buildGameStarter();
+const gameRemover = creator.buildGameRemover();
+const gameFinder = creator.buildGameFinder();
+const wish = creator.buildWish();
+const updater = creator.buildUpdater();
+const global = creator.buildGlobal();
+//
 
-if (!fs.existsSync(mainDir)) {
-  fs.mkdirSync(mainDir, (err) => {
+if (!fs.existsSync(global.mainDir)) {
+  fs.mkdirSync(global.mainDir, (err) => {
     console.log("**ERROR**");
     console.log(err);
-    showError(err);
+    global.showError(err);
   });
 }
 
 const createWindow = () => {
   //Check for app updated after 3 seconds
-  setTimeout(updateChecker, 3000);
+  setTimeout(updater.updateChecker, 3000);
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     frame: true, // removes the frame from the BrowserWindow. It is advised that you either create a custom menu bar or remove this line
@@ -83,30 +85,30 @@ app.on("quit", () => {
 });
 
 ipcMain.on("download", async function (event, game) {
-  beginInstallationCycle(event, game);
+  main.beginInstallationCycle(event, game);
 });
 
 ipcMain.on("get-installed-games", function (event, arg) {
-  const gameList = getInstalledGames();
+  const gameList = gameFinder.getInstalledGames();
   event.sender.send("get-installed-games", gameList);
 });
 
 ipcMain.on("is-game-installed", function (event, title) {
-  const isGameInstalled = isThisGameInstalled(title);
+  const isGameInstalled = gameFinder.isThisGameInstalled(title);
   event.sender.send("is-game-installed", { name: title, isInstalled: isGameInstalled });
 });
 
 ipcMain.on("play-game", function (event, gameName) {
-  playGame(gameName, mainDir);
+  gameStarter.playGame(gameName, global.mainDir);
 });
 
 ipcMain.on("delete-game", function (event, gameName) {
   console.log("DELETING GAME: ");
-  deleteGame(gameName, mainDir);
+  gameRemover.deleteGame(gameName, global.mainDir);
   event.sender.send("gameRemoved", "removed");
 });
 
 ipcMain.on("get-page", function (event, pageNmbr) {
   console.log("IPCMAIN.ON (GET-PAGE)");
-  getPage(pageNmbr, event);
+  wish.getPage(pageNmbr, event);
 });

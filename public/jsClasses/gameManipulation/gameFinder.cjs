@@ -1,4 +1,7 @@
 class GameFinder {
+  #readdirSync = null;
+  #mainDir = null;
+
   constructor(readdirSync, mainDir) {
     this.#readdirSync = readdirSync;
     this.#mainDir = mainDir;
@@ -14,7 +17,7 @@ class GameFinder {
   }
 
   isThisGameInstalled(title) {
-    const gameList = this.#getInstalledGames(mainDir);
+    const gameList = this.getInstalledGames(mainDir);
     const filter = gameList.find((folderName) => folderName === title);
     return filter != undefined;
   }

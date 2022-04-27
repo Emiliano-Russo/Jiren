@@ -1,4 +1,8 @@
 class LinkCollector {
+  #axios = null;
+  #jsdom = null;
+  #JSDOM = null;
+
   constructor(axios, jsdom) {
     this.#axios = axios;
     this.#jsdom = jsdom;

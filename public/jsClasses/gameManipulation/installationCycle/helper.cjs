@@ -1,10 +1,13 @@
 class Helper {
+  #fs = null;
+  #path = null;
+
   constructor(fs, path) {
-    this.#this.#fs = fs;
-    this.#this.#path = path;
+    this.#fs = fs;
+    this.#path = path;
   }
   createFolder(dest) {
-    if (!this.#this.#fs.existsSync(dest)) this.#this.#fs.mkdirSync(dest, function () {});
+    if (!this.#fs.existsSync(dest)) this.#fs.mkdirSync(dest, function () {});
   }
 
   getFileName(linkWeb, serverName) {
@@ -21,7 +24,7 @@ class Helper {
     return "other";
   }
 
-  fromDir(startPath, filter) {
+  findFirstMatchOnPath(startPath, filter) {
     if (!this.#fs.existsSync(startPath)) {
       return;
     }

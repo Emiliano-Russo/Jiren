@@ -1,6 +1,8 @@
 class Global {
-  mainDir = "C:/Users/" + username + "/Documents/JirenGames";
-
+  #dialog = null;
+  #os = null;
+  #username = "Pedro";
+  mainDir = "C:/Users/" + this.#username + "/Documents/JirenGames";
   constructor(dialog, os, username) {
     this.#dialog = dialog;
     this.#os = os;
@@ -13,6 +15,10 @@ class Global {
       message: message,
       buttons: ["Ok"],
     });
+  }
+  mainDir() {
+    const mainDir = "C:/Users/" + this.#username + "/Documents/JirenGames";
+    return mainDir;
   }
 }
 

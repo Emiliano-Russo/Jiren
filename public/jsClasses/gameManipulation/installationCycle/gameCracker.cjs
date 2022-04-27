@@ -1,4 +1,10 @@
 class GameCracker {
+  #downloader = null;
+  #extractor = null;
+  #helper = null;
+  #linkCollector = null;
+  #fs = null;
+
   constructor(downloader, extractor, helper, linkCollector, fs) {
     this.#downloader = downloader;
     this.#extractor = extractor;
@@ -7,19 +13,20 @@ class GameCracker {
     this.#fs = fs;
   }
 
-  crack(urlCrack, gameFolder, event) {
-      event.sender.send("feedBack", "Cracking...");
-      const compressionType = this.#helper.detectCompressionType(urlCrack);
-      const destiny = gameFolder + "/crack." + compressionType;
-      const link = await this.#linkCollector.fetchLink(urlCrack);
-      await this.#downloader.downloadFile(link, destiny, event);
-      await this.#extractor.unCompress(destiny, gameFolder + "/Crack");
-      this.#applyCrackToGame(gameFolder + "/Crack", gameFolder);
+  async crack(urlCrack, gameFolder, event) {
+    event.sender.send("feedBack", "Cracking...");
+    const compressionType = this.#helper.detectCompressionType(urlCrack);
+    const destiny = gameFolder + "/crack." + compressionType;
+    const link = await this.#linkCollector.fetchLink(urlCrack);
+    await this.#downloader.downloadFile(link, destiny, event);
+    await this.#extractor.unCompress(destiny, gameFolder + "/Crack");
+    this.#applyCrackToGame(gameFolder + "/Crack", gameFolder);
   }
 
   #applyCrackToGame(crackFolder, gameFolder) {
     const crackFolderFiles = crackFolder + "/" + this.#fs.readdirSync(crackFolder, (res) => {})[0];
-    const gameFolderFiles = gameFolder + "/" + this.#fs.readdirSync(gameFolder).filter((val) => !val.includes("rack"))[0];
+    const gameFolderFiles =
+      gameFolder + "/" + this.#fs.readdirSync(gameFolder).filter((val) => !val.includes("rack"))[0];
     const crackFilesNamesList = this.#fs.readdirSync(crackFolderFiles);
     this.#copyEveryFileIntoTheGame(crackFilesNamesList, gameFolderFiles, crackFolderFiles);
   }
@@ -47,7 +54,6 @@ class GameCracker {
       }
     }
   }
-
 }
 
 module.exports.GameCracker = GameCracker;

@@ -18,7 +18,7 @@ module.exports.playGame = function playGame(gameName) {
 
 function getGameExe(gameName) {
   //Magic
-  const baseDir = mainDir + "/" + gameName + "/Uncompress/";
+  const baseDir = mainDir() + "/" + gameName + "/Uncompress/";
   const finalDir = baseDir + fs.readdirSync(baseDir).filter((val) => !val.includes("rack"))[0];
   console.log("% Final Dir: ");
   console.log(finalDir);

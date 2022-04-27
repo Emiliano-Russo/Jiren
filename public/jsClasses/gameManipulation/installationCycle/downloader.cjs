@@ -1,7 +1,11 @@
 class Downloader {
-  constructor(fs, http, showError) {
+  #fs = null;
+  #https = null;
+  #showError = null;
+
+  constructor(fs, https, showError) {
     this.#fs = fs;
-    this.#http = http;
+    this.#https = https;
     this.#showError = showError;
   }
   downloadFile(url, dest, event) {

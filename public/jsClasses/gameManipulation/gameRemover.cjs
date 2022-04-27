@@ -1,4 +1,5 @@
 class GameRemover {
+  #fs = null;
   constructor(fs) {
     this.#fs = fs;
   }

@@ -1,4 +1,9 @@
 class Updater {
+  #dialog = null;
+  #autoUpdater = null;
+  #log = null;
+  #showError = null;
+
   constructor(dialog, autoUpdater, log, showError) {
     this.#dialog = dialog;
     this.#autoUpdater = autoUpdater;

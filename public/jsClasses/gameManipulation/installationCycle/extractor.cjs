@@ -1,12 +1,20 @@
 class Extractor {
+  #StreamZip = null;
+  #fs = null;
+  #unrar_promise = null;
+  #_7z = null;
+  #detectCompressionType = null;
+  #createFolder = null;
+  #showError = null;
+
   constructor(StreamZip, fs, unrar_promise, _7z, detectCompressionType, createFolder, showError) {
-      this.#StreamZip = StreamZip;
-      this.#fs = fs;
-      this.#unrar_promise = unrar_promise;
-      this.#_7z = _7z;
-      this.#detectCompressionType = detectCompressionType;
-      this.#createFolder = createFolder;
-      this.#showError = showError;
+    this.#StreamZip = StreamZip;
+    this.#fs = fs;
+    this.#unrar_promise = unrar_promise;
+    this.#_7z = _7z;
+    this.#detectCompressionType = detectCompressionType;
+    this.#createFolder = createFolder;
+    this.#showError = showError;
   }
 
   unCompress(location, dest, event) {
@@ -30,7 +38,7 @@ class Extractor {
     });
   }
 
-   #uncompressZip(zipLocation, folderDest, event) {
+  #uncompressZip(zipLocation, folderDest, event) {
     return new Promise(async function (resolve, reject) {
       try {
         const zip = new this.#StreamZip.async({ file: zipLocation });
@@ -53,8 +61,8 @@ class Extractor {
       }
     });
   }
-  
-   #unCompressRar(rarLocation, dest, event) {
+
+  async #unCompressRar(rarLocation, dest, event) {
     try {
       const rarfileList = await this.#unrar_promise.list(rarLocation);
       event.sender.send("feedBack", "Extracting: " + rarfileList.length + " Files");
@@ -65,8 +73,8 @@ class Extractor {
       //showError(error.toString());
     }
   }
-  
-   #unCompress7z(location, dest) {
+
+  #unCompress7z(location, dest) {
     this.#_7z.unpack(location, dest, (error) => {
       console.log("Error while extractiing .zip");
       showError("Error while extractiing .zip       " + error.toString());
@@ -74,4 +82,4 @@ class Extractor {
   }
 }
 
-
+module.exports.Extractor = Extractor;

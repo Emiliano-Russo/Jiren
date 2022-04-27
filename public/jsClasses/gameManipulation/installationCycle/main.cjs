@@ -1,4 +1,11 @@
 class Main {
+  #pcUsername = null;
+  #extractor = null;
+  #linkCollector = null;
+  #downloader = null;
+  #gameCracker = null;
+  #helper = null;
+
   constructor(pcUsername, extractor, linkCollector, downloader, gameCracker, helper) {
     this.#pcUsername = pcUsername;
     this.#extractor = extractor;

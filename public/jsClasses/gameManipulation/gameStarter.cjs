@@ -1,4 +1,10 @@
 class GameStarter {
+  #exec = null;
+  #fs = null;
+  #findFirstMatchOnPath = null;
+  #mainDir = null;
+  #showError = null;
+
   constructor(exec, fs, findFirstMatchOnPath, mainDir, showError) {
     this.#exec = exec;
     this.#fs = fs;
